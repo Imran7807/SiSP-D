@@ -1,0 +1,33 @@
+<header class="site-header">
+  <div class="container nav">
+    <a href="/" class="brand">
+      <span class="brand-mark" aria-hidden="true"></span>
+      <%= companyName %>
+    </a>
+
+    <button class="nav-toggle" aria-label="Toggle menu">&#9776;</button>
+
+    <ul class="nav-menu">
+      <li><a href="/" class="<%= page === 'home' ? 'active' : '' %>">Home</a></li>
+      <li><a href="/services" class="<%= page === 'services' ? 'active' : '' %>">Services</a></li>
+      <li><a href="/coverage" class="<%= page === 'coverage' ? 'active' : '' %>">Coverage Areas</a></li>
+      <% if (isLoggedIn) { %>
+        <li><a href="/packages" class="<%= page === 'packages' ? 'active' : '' %>">Packages</a></li>
+      <% } %>
+      <li><a href="/about" class="<%= page === 'about' ? 'active' : '' %>">About Us</a></li>
+      <li><a href="/contact" class="<%= page === 'contact' ? 'active' : '' %>">Contact</a></li>
+    </ul>
+
+    <div class="nav-actions">
+      <% if (isLoggedIn) { %>
+        <a href="/dashboard" class="btn btn-ghost btn-sm">Dashboard</a>
+        <form action="/logout" method="POST" style="display:inline">
+          <button type="submit" class="btn btn-primary btn-sm">Logout</button>
+        </form>
+      <% } else { %>
+        <a href="/login" class="btn btn-ghost btn-sm">Login</a>
+        <a href="/signup" class="btn btn-primary btn-sm">New Connection</a>
+      <% } %>
+    </div>
+  </div>
+</header>

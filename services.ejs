@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<%- include('head', { title: 'Services — ' + companyName }) %>
+</head>
+<body>
+<%- include('header') %>
+
+<section class="hero" style="padding:60px 0 70px;">
+  <div class="container">
+    <div class="eyebrow">What we offer</div>
+    <h1 style="max-width:20ch;">Internet services for every kind of connection.</h1>
+    <p class="lead">From single households to small businesses, our plans are built to match how you actually use the internet.</p>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container">
+    <div class="grid grid-3">
+      <div class="card">
+        <div class="icon-badge bars" aria-hidden="true"></div>
+        <h3>Home Broadband</h3>
+        <p>Reliable everyday internet for streaming, video calls, gaming, and smart-home devices.</p>
+      </div>
+      <div class="card">
+        <div class="icon-badge" aria-hidden="true"></div>
+        <h3>Business Connections</h3>
+        <p>Higher-priority lines for shops, offices, and small businesses that can't afford downtime.</p>
+      </div>
+      <div class="card">
+        <div class="icon-badge" aria-hidden="true"></div>
+        <h3>New Installation</h3>
+        <p>Our technicians handle setup at your location after your account and package are approved.</p>
+      </div>
+      <div class="card">
+        <div class="icon-badge bars" aria-hidden="true"></div>
+        <h3>Package Upgrades</h3>
+        <p>Move to a faster plan any time from your dashboard — no need to visit an office.</p>
+      </div>
+      <div class="card">
+        <div class="icon-badge" aria-hidden="true"></div>
+        <h3>Digital Payments</h3>
+        <p>Pay by JazzCash, Easypaisa, or bank transfer and upload your receipt directly online.</p>
+      </div>
+      <div class="card">
+        <div class="icon-badge" aria-hidden="true"></div>
+        <h3>Customer Support</h3>
+        <p>Reach our support team by phone or email whenever you run into a connection issue.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section section-alt" style="text-align:center;">
+  <div class="container">
+    <h2>Not connected yet?</h2>
+    <p>Check whether we cover your area, then apply online in a few minutes.</p>
+    <div style="display:flex;gap:14px;justify-content:center;flex-wrap:wrap;">
+      <a href="/coverage" class="btn btn-outline">View Coverage Areas</a>
+      <a href="/signup" class="btn btn-primary">New Connection</a>
+    </div>
+  </div>
+</section>
+
+<%- include('footer') %>
+</body>
+</html>

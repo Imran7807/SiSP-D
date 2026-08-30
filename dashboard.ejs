@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<%- include('head', { title: 'Dashboard — ' + companyName }) %>
+</head>
+<body>
+<%- include('header') %>
+
+<section class="dash-header">
+  <div class="container">
+    <h1>Hi, <%= user.name %></h1>
+    <p>Here's what's happening with your connection.</p>
+  </div>
+</section>
+
+<section class="container dash-wrap" style="padding-bottom:70px;">
+  <div class="summary-card">
+    <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px;">
+      <h2 style="margin:0;font-size:1.2rem;">Package status</h2>
+      <span class="status-pill status-<%= user.subscription.status %>"><%= user.subscription.status %></span>
+    </div>
+
+    <% if (user.subscription.status === 'none') { %>
+      <p style="margin-top:16px;">You don't have an active package yet. Subscribe to a package to get connected.</p>
+      <a href="/packages" class="btn btn-primary" style="margin-top:6px;">Subscribe to a Package</a>
+
+    <% } else if (user.subscription.status === 'pending') { %>
+      <p style="margin-top:16px;">
+        Your request for the <strong><%= user.subscription.speedLabel %></strong> package (Rs. <%= (user.subscription.price || 0).toLocaleString() %>/month)
+        is awaiting admin approval. This usually takes a short while — check back soon.
+      </p>
+
+    <% } else if (user.subscription.status === 'active') { %>
+      <div class="summary-grid">
+        <div class="stat-block">
+          <span class="label">Speed</span>
+          <strong><%= user.subscription.speedLabel %></strong>
+        </div>
+        <div class="stat-block">
+          <span class="label">Activated on</span>
+          <strong><%= user.subscription.startDate ? new Date(user.subscription.startDate).toDateString() : '—' %></strong>
+        </div>
+        <div class="stat-block">
+          <span class="label">Expires on</span>
+          <strong><%= user.subscription.endDate ? new Date(user.subscription.endDate).toDateString() : '—' %></strong>
+        </div>
+      </div>
+      <a href="/packages" class="btn btn-outline" style="margin-top:22px;">Upgrade Package</a>
+
+    <% } else if (user.subscription.status === 'expired') { %>
+      <p style="margin-top:16px;">
+        Your <strong><%= user.subscription.speedLabel %></strong> package expired on
+        <%= user.subscription.endDate ? new Date(user.subscription.endDate).toDateString() : '—' %>. Renew to stay connected.
+      </p>
+      <a href="/packages" class="btn btn-primary" style="margin-top:6px;">Renew Package</a>
+    <% } %>
+  </div>
+
+  <% if (recentSubscriptions && recentSubscriptions.length) { %>
+    <div class="card" style="margin-top:26px;">
+      <h3 style="font-size:1.05rem;">Recent subscription requests</h3>
+      <div class="table-wrap">
+        <table class="simple">
+          <thead>
+            <tr><th>Package</th><th>Price</th><th>Requested</th><th>Status</th></tr>
+          </thead>
+          <tbody>
+            <% recentSubscriptions.forEach(function(s) { %>
+              <tr>
+                <td><%= s.speedLabel %></td>
+                <td>Rs. <%= s.price.toLocaleString() %></td>
+                <td><%= new Date(s.createdAt).toDateString() %></td>
+                <td><span class="status-pill status-<%= s.status === 'approved' ? 'active' : (s.status === 'rejected' ? 'expired' : 'pending') %>"><%= s.status %></span></td>
+              </tr>
+            <% }); %>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  <% } %>
+
+  <div class="card" style="margin-top:26px;">
+    <h3 style="font-size:1.05rem;">Account details</h3>
+    <table class="simple">
+      <tbody>
+        <tr><td>Mobile</td><td><%= user.mobile %></td></tr>
+        <tr>
+          <td>Area</td>
+          <td class="<%= user.customArea ? '' : 'ur' %>"><%= user.customArea || user.location %></td>
+        </tr>
+        <tr><td>Member since</td><td><%= new Date(user.createdAt).toDateString() %></td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<%- include('footer') %>
+</body>
+</html>

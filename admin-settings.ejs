@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<%- include('head', { title: 'Admin — Payment Settings' }) %>
+</head>
+<body>
+<div class="admin-shell">
+  <%- include('admin-sidebar', { active: 'settings' }) %>
+  <main class="admin-main">
+    <h1 style="font-size:1.5rem;">Payment Settings</h1>
+    <p>These details are shown to customers on the payment page.</p>
+
+    <% if (saved) { %><div class="success-banner" style="max-width:520px;">Settings saved.</div><% } %>
+
+    <div class="card" style="max-width:520px;">
+      <form action="/admin/settings" method="POST" enctype="multipart/form-data">
+        <div class="field">
+          <label>QR code image</label>
+          <label class="upload-box">
+            <% if (settings.qrCodeImage) { %>
+              <img class="preview" src="<%= settings.qrCodeImage %>" alt="Current QR code" style="display:block;" />
+            <% } else { %>
+              <img class="preview" alt="" />
+            <% } %>
+            <div class="upload-label">Click to upload / replace QR code</div>
+            <div class="upload-sub">JPG or PNG</div>
+            <input type="file" name="qrCodeImage" accept="image/*" />
+          </label>
+        </div>
+        <div class="field">
+          <label for="accountTitle">Account title</label>
+          <input type="text" id="accountTitle" name="accountTitle" value="<%= settings.accountTitle || '' %>" placeholder="ConnectPro Pvt Ltd" />
+        </div>
+        <div class="field">
+          <label for="accountNumber">Bank account number</label>
+          <input type="text" id="accountNumber" name="accountNumber" value="<%= settings.accountNumber || '' %>" />
+        </div>
+        <div class="field">
+          <label for="jazzCashNumber">JazzCash number</label>
+          <input type="text" id="jazzCashNumber" name="jazzCashNumber" value="<%= settings.jazzCashNumber || '' %>" />
+        </div>
+        <div class="field">
+          <label for="easypaisaNumber">Easypaisa number</label>
+          <input type="text" id="easypaisaNumber" name="easypaisaNumber" value="<%= settings.easypaisaNumber || '' %>" />
+        </div>
+        <button type="submit" class="btn btn-primary btn-block">Save Settings</button>
+      </form>
+    </div>
+  </main>
+</div>
+</body>
+</html>

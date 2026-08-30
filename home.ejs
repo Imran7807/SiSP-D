@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<%- include('head', { title: companyName + ' — Fast Reliable Internet' }) %>
+</head>
+<body>
+<%- include('header') %>
+
+<section class="hero">
+  <div class="container hero-grid">
+    <div>
+      <div class="eyebrow">Now taking new connections</div>
+      <h1>Internet that keeps your whole home online.</h1>
+      <p class="lead">
+        <%= companyName %> delivers dependable, high-speed internet to homes and businesses across our
+        coverage areas — simple pricing, fast installation, and a support team that actually answers.
+      </p>
+      <div class="hero-cta">
+        <a href="/signup" class="btn btn-primary">Get a New Connection</a>
+        <a href="/login" class="btn btn-ghost">Login to My Account</a>
+      </div>
+      <div class="hero-stats">
+        <div><strong>16+</strong><span>Areas covered</span></div>
+        <div><strong>24/7</strong><span>Support availability</span></div>
+        <div><strong>&lt; 48h</strong><span>Typical installation time</span></div>
+      </div>
+    </div>
+    <div class="hero-rings" aria-hidden="true">
+      <span></span><span></span><span></span>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container">
+    <div class="section-head">
+      <div class="eyebrow">Why <%= companyName %></div>
+      <h2>Built for a stable connection, every day.</h2>
+    </div>
+    <div class="grid grid-3">
+      <div class="card">
+        <div class="icon-badge bars" aria-hidden="true"></div>
+        <h3>Consistent speed</h3>
+        <p>Bandwidth that holds steady through video calls, streaming, and busy household hours.</p>
+      </div>
+      <div class="card">
+        <div class="icon-badge" aria-hidden="true"></div>
+        <h3>Simple sign-up</h3>
+        <p>Apply online in minutes — pick your area, verify your ID, and choose a package.</p>
+      </div>
+      <div class="card">
+        <div class="icon-badge" aria-hidden="true"></div>
+        <h3>Transparent billing</h3>
+        <p>Clear package pricing with no hidden charges, and a dashboard that shows exactly what you have.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section section-alt">
+  <div class="container">
+    <div class="section-head">
+      <div class="eyebrow">Packages</div>
+      <h2>Pick the speed that fits your home.</h2>
+    </div>
+    <div class="grid grid-4">
+      <% packages.forEach(function(pkg, i) { %>
+        <div class="pkg-card <%= i === 2 ? 'current' : '' %>">
+          <% if (i === 2) { %><span class="badge">Most popular</span><% } %>
+          <div class="speed"><%= pkg.speedMbps %><span> MB/s</span></div>
+          <div class="price">Rs. <strong><%= pkg.price.toLocaleString() %></strong> / month</div>
+          <a href="/signup" class="btn btn-outline btn-block">Choose Plan</a>
+        </div>
+      <% }); %>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container" style="text-align:center;">
+    <div class="section-head" style="margin-bottom:24px;">
+      <h2>Ready to get connected?</h2>
+      <p>Create your account, select your area, and choose a package — approval usually takes minutes.</p>
+    </div>
+    <a href="/signup" class="btn btn-primary">Start New Connection</a>
+  </div>
+</section>
+
+<%- include('footer') %>
+</body>
+</html>

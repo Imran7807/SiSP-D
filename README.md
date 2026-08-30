@@ -1,8 +1,17 @@
-# ConnectPro — ISP Customer Portal
+# ConnectPro — ISP Customer Portal (flat file structure)
 
-A full customer sign-up, package subscription, and payment-approval website for
-an internet service provider, built with Node.js, Express, EJS, and MongoDB.
-Designed to deploy directly to Heroku.
+A full customer sign-up, package subscription, and payment-approval website
+for an internet service provider, built with Node.js, Express, EJS, and
+MongoDB. Deploys directly to Heroku.
+
+Every file in this project sits in a single flat folder — there are no
+subfolders. File names use prefixes instead of folders to stay organized:
+
+- `model-*.js` — Mongoose schemas (User, Package, Subscription, Admin, Settings)
+- `middleware-*.js` — auth guards and file-upload handling
+- `route-*.js` — Express routes (index, auth, dashboard, packages, payment, admin)
+- `admin-*.ejs` — admin panel pages
+- everything else (`home.ejs`, `signup.ejs`, `db.js`, `locations.js`, `style.css`, `main.js`, etc.) sits at the root by its own name
 
 ## Features
 
@@ -25,18 +34,9 @@ Designed to deploy directly to Heroku.
 - Uploaded images (ID cards, payment screenshots, QR code) are stored as
   base64 strings directly in MongoDB, so nothing depends on Heroku's
   ephemeral filesystem.
-
-## Project structure
-
-```
-app.js                 Express app entry point
-config/                DB connection, coverage-area list, seed script
-models/                Mongoose schemas (User, Package, Subscription, Admin, Settings)
-middleware/             Auth guards + file-upload handling
-routes/                 index, auth, dashboard, packages, payment, admin
-views/                  EJS templates (+ views/admin for the admin panel)
-public/                 CSS and client-side JS
-```
+- CSS and client-side JS (`style.css`, `main.js`) are served through two
+  explicit routes in `app.js` (`/style.css`, `/main.js`) instead of a
+  `/public` static folder, since this project keeps everything flat.
 
 ## 1. Local setup
 
@@ -48,8 +48,8 @@ npm run seed     # creates the admin account + the 4 default packages
 npm start        # runs on http://localhost:3000
 ```
 
-Admin panel: `http://localhost:3000/admin/login` (use the `ADMIN_USERNAME`
-and `ADMIN_PASSWORD` from your `.env`).
+Admin panel URL: `http://localhost:3000/admin/login` (the URL path stays
+`/admin/login`; only the on-disk file is named `admin-login.ejs`).
 
 ## 2. Deploying to Heroku
 
@@ -90,9 +90,9 @@ hide, or delete plans.
 
 ## 4. Notes on the coverage-area list
 
-The 16 area names (plus "None of these") live in `config/locations.js`.
-Edit that file and redeploy if your coverage area changes; the sign-up page,
-coverage page, and admin views all read from this single list.
+The 16 area names (plus "None of these") live in `locations.js`. Edit that
+file and redeploy if your coverage area changes; the sign-up page, coverage
+page, and admin views all read from this single list.
 
 ## Security notes for production
 
@@ -100,4 +100,7 @@ coverage page, and admin views all read from this single list.
 - Consider adding HTTPS-only cookies (already enabled automatically when
   `NODE_ENV=production`, which Heroku sets by default) and a rate limiter on
   the login routes if you expect abuse attempts.
-- Uploaded images are capped at 5MB each in `middleware/upload.js`.
+- Uploaded images are capped at 5MB each in `middleware-upload.js`.
+- Because everything is flat, `app.js` deliberately does NOT serve the whole
+  folder as static files (that would expose `.env`, source code, etc.) — only
+  `/style.css` and `/main.js` are exposed, through dedicated routes.

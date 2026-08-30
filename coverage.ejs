@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<%- include('head', { title: 'Coverage Areas — ' + companyName }) %>
+</head>
+<body>
+<%- include('header') %>
+
+<section class="hero" style="padding:60px 0 70px;">
+  <div class="container">
+    <div class="eyebrow">Coverage</div>
+    <h1 style="max-width:20ch;">Areas we currently serve.</h1>
+    <p class="lead">
+      <%= companyName %> is live in the following areas. Don't see yours listed? You can still apply —
+      just select "None of these" during sign-up and tell us where you're located.
+    </p>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container">
+    <div class="coverage-list">
+      <% locations.forEach(function(loc) { %>
+        <div class="coverage-item">
+          <span class="dot" aria-hidden="true"></span>
+          <span class="ur"><%= loc %></span>
+        </div>
+      <% }); %>
+    </div>
+  </div>
+</section>
+
+<section class="section section-alt" style="text-align:center;">
+  <div class="container">
+    <h2>Ready to apply?</h2>
+    <p>Sign up online — it only takes a few minutes.</p>
+    <a href="/signup" class="btn btn-primary">Start New Connection</a>
+  </div>
+</section>
+
+<%- include('footer') %>
+</body>
+</html>

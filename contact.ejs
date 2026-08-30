@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<%- include('head', { title: 'Contact — ' + companyName }) %>
+</head>
+<body>
+<%- include('header') %>
+
+<section class="hero" style="padding:60px 0 70px;">
+  <div class="container">
+    <div class="eyebrow">Get in touch</div>
+    <h1 style="max-width:20ch;">We're here to help.</h1>
+    <p class="lead">Questions about coverage, packages, or an existing connection — reach out any time.</p>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container grid grid-3">
+    <div class="card">
+      <h3>Phone</h3>
+      <p><%= supportPhone || 'Add your support phone number in the .env file.' %></p>
+    </div>
+    <div class="card">
+      <h3>Email</h3>
+      <p><%= supportEmail || 'Add your support email in the .env file.' %></p>
+    </div>
+    <div class="card">
+      <h3>Office Hours</h3>
+      <p>Monday to Saturday, 9:00 AM – 8:00 PM</p>
+    </div>
+  </div>
+</section>
+
+<%- include('footer') %>
+</body>
+</html>

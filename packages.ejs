@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<%- include('head', { title: 'Packages — ' + companyName }) %>
+</head>
+<body>
+<%- include('header') %>
+
+<section class="section" style="padding-top:52px;">
+  <div class="container">
+    <div class="section-head">
+      <div class="eyebrow"><%= user.subscription.status === 'active' ? 'Upgrade' : 'Subscription' %></div>
+      <h1 style="font-size:1.9rem;">
+        <%= user.subscription.status === 'active' ? 'Upgrade your package' : 'Choose a package' %>
+      </h1>
+      <p>Select a plan below, then complete payment to activate your connection.</p>
+    </div>
+
+    <div class="grid grid-4">
+      <% packages.forEach(function(pkg) { %>
+        <div class="pkg-card <%= user.subscription.speedLabel === pkg.speedLabel && user.subscription.status === 'active' ? 'current' : '' %>">
+          <% if (user.subscription.speedLabel === pkg.speedLabel && user.subscription.status === 'active') { %>
+            <span class="badge">Current plan</span>
+          <% } %>
+          <div class="speed"><%= pkg.speedMbps %><span> MB/s</span></div>
+          <div class="price">Rs. <strong><%= pkg.price.toLocaleString() %></strong> / month</div>
+          <form action="/packages/<%= pkg._id %>/select" method="POST">
+            <button type="submit" class="btn btn-primary btn-block">
+              <%= user.subscription.status === 'active' ? 'Switch to this plan' : 'Select Plan' %>
+            </button>
+          </form>
+        </div>
+      <% }); %>
+    </div>
+
+    <% if (!packages.length) { %>
+      <div class="card" style="text-align:center;"><p style="margin:0;">No packages are available right now. Please check back soon.</p></div>
+    <% } %>
+  </div>
+</section>
+
+<%- include('footer') %>
+</body>
+</html>

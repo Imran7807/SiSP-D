@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<%- include('head', { title: 'About Us — ' + companyName }) %>
+</head>
+<body>
+<%- include('header') %>
+
+<section class="hero" style="padding:60px 0 70px;">
+  <div class="container">
+    <div class="eyebrow">About us</div>
+    <h1 style="max-width:20ch;">Local internet, run by people who live here too.</h1>
+    <p class="lead">
+      <%= companyName %> started with a simple goal: bring dependable internet to neighborhoods that
+      larger providers overlook, with pricing and support that stay straightforward.
+    </p>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container grid grid-2" style="align-items:start;">
+    <div class="card">
+      <h3>Our mission</h3>
+      <p>To keep every home and business we serve connected — with fair pricing, fast installs, and
+      support that treats every customer like a neighbor, not a ticket number.</p>
+    </div>
+    <div class="card">
+      <h3>How we work</h3>
+      <p>Applications, ID verification, package selection, and payment all happen online, so getting
+      connected doesn't require a trip to an office. Our team reviews and approves every request by hand.</p>
+    </div>
+  </div>
+</section>
+
+<section class="section section-alt" style="text-align:center;">
+  <div class="container">
+    <h2>Have a question before you sign up?</h2>
+    <a href="/contact" class="btn btn-primary">Contact Our Team</a>
+  </div>
+</section>
+
+<%- include('footer') %>
+</body>
+</html>

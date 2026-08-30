@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<%- include('head', { title: 'New Connection — ' + companyName }) %>
+</head>
+<body>
+<%- include('header') %>
+
+<section class="section" style="padding-top:48px;">
+  <div class="container">
+    <div class="section-head" style="margin-bottom:30px;">
+      <div class="eyebrow">New connection</div>
+      <h1 style="font-size:1.9rem;">Create your <%= companyName %> account</h1>
+      <p>Fill in your details below. Your application will show as "Pending" until an admin approves it.</p>
+    </div>
+
+    <div class="form-shell">
+      <% if (error) { %><div class="error-banner"><%= error %></div><% } %>
+
+      <form action="/signup" method="POST" enctype="multipart/form-data" novalidate>
+
+        <h3 style="font-size:1rem;">1. Your details</h3>
+        <div class="two-col">
+          <div class="field">
+            <label for="name">Full name</label>
+            <input type="text" id="name" name="name" required value="<%= old.name || '' %>" placeholder="e.g. Ahmed Raza" />
+          </div>
+          <div class="field">
+            <label for="mobile">Mobile number</label>
+            <input type="tel" id="mobile" name="mobile" required value="<%= old.mobile || '' %>" placeholder="03xxxxxxxxx" />
+          </div>
+        </div>
+
+        <h3 style="font-size:1rem;margin-top:8px;">2. Your area</h3>
+        <div class="field">
+          <label for="location">Select your location</label>
+          <select id="location" name="location" class="ur" required data-other-value="<%= otherLocation %>">
+            <option value="" disabled <%= !old.location ? 'selected' : '' %>>-- Select your area --</option>
+            <% locations.forEach(function(loc) { %>
+              <option value="<%= loc %>" <%= old.location === loc ? 'selected' : '' %>><%= loc %></option>
+            <% }); %>
+            <option value="<%= otherLocation %>" <%= old.location === otherLocation ? 'selected' : '' %>><%= otherLocation %></option>
+          </select>
+        </div>
+        <div class="field" id="customAreaField" style="display:none;">
+          <label for="customArea">Type the name of your area</label>
+          <input type="text" id="customArea" name="customArea" value="<%= old.customArea || '' %>" placeholder="Enter your area / mohalla name" />
+        </div>
+
+        <h3 style="font-size:1rem;margin-top:8px;">3. ID card verification</h3>
+        <div class="two-col">
+          <div class="field">
+            <label>ID card — front side</label>
+            <label class="upload-box">
+              <img class="preview" alt="" />
+              <div class="upload-label">Click to upload front side</div>
+              <div class="upload-sub">JPG or PNG, up to 5MB</div>
+              <input type="file" name="idFront" accept="image/*" required />
+            </label>
+          </div>
+          <div class="field">
+            <label>ID card — back side</label>
+            <label class="upload-box">
+              <img class="preview" alt="" />
+              <div class="upload-label">Click to upload back side</div>
+              <div class="upload-sub">JPG or PNG, up to 5MB</div>
+              <input type="file" name="idBack" accept="image/*" required />
+            </label>
+          </div>
+        </div>
+
+        <h3 style="font-size:1rem;margin-top:8px;">4. Set a password</h3>
+        <div class="two-col">
+          <div class="field">
+            <label for="password">Password</label>
+            <input type="password" id="password" name="password" required minlength="6" placeholder="At least 6 characters" />
+          </div>
+          <div class="field">
+            <label for="confirmPassword">Confirm password</label>
+            <input type="password" id="confirmPassword" name="confirmPassword" required minlength="6" placeholder="Re-enter password" />
+          </div>
+        </div>
+
+        <button type="submit" class="btn btn-primary btn-block" style="margin-top:10px;">Sign Up</button>
+      </form>
+
+      <div class="helper-link">Already have an account? <a href="/login">Login here</a></div>
+    </div>
+  </div>
+</section>
+
+<%- include('footer') %>
+</body>
+</html>

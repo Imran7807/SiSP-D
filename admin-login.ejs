@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<%- include('head', { title: 'Admin Login — ' + companyName }) %>
+</head>
+<body style="background:var(--navy-950);">
+<section class="center-page">
+  <div class="form-shell" style="max-width:420px;">
+    <div class="brand" style="justify-content:center;margin-bottom:20px;color:var(--navy-900);">
+      <span class="brand-mark" aria-hidden="true"></span> <%= companyName %> Admin
+    </div>
+    <h1 style="font-size:1.4rem;text-align:center;">Admin Login</h1>
+    <p style="text-align:center;margin-bottom:24px;">Sign in to manage subscriptions, packages, and payment settings.</p>
+
+    <% if (error) { %><div class="error-banner"><%= error %></div><% } %>
+
+    <form action="/admin/login" method="POST">
+      <div class="field">
+        <label for="username">Username</label>
+        <input type="text" id="username" name="username" required />
+      </div>
+      <div class="field">
+        <label for="password">Password</label>
+        <input type="password" id="password" name="password" required />
+      </div>
+      <button type="submit" class="btn btn-dark btn-block">Login</button>
+    </form>
+  </div>
+</section>
+</body>
+</html>

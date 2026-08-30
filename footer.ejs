@@ -1,0 +1,44 @@
+<footer class="site-footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div>
+        <div class="brand" style="margin-bottom:12px;">
+          <span class="brand-mark" aria-hidden="true"></span>
+          <%= companyName %>
+        </div>
+        <p style="max-width:32ch;color:rgba(245,248,251,0.55);">
+          Fiber-backed home and business internet, built for reliability across every neighborhood we serve.
+        </p>
+      </div>
+      <div>
+        <h4>Company</h4>
+        <ul>
+          <li><a href="/about">About Us</a></li>
+          <li><a href="/services">Services</a></li>
+          <li><a href="/coverage">Coverage Areas</a></li>
+          <li><a href="/contact">Contact</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Account</h4>
+        <ul>
+          <li><a href="/signup">New Connection</a></li>
+          <li><a href="/login">Login</a></li>
+          <li><a href="/packages">Packages</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Contact</h4>
+        <ul>
+          <% if (supportPhone) { %><li><%= supportPhone %></li><% } %>
+          <% if (supportEmail) { %><li><%= supportEmail %></li><% } %>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>&copy; <%= new Date().getFullYear() %> <%= companyName %>. All rights reserved.</span>
+      <span>Built for reliable, transparent connectivity.</span>
+    </div>
+  </div>
+</footer>
+<script src="/main.js"></script>

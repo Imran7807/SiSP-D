@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<%- include('head', { title: 'Admin — Pending Approvals' }) %>
+</head>
+<body>
+<div class="admin-shell">
+  <%- include('admin-sidebar', { active: 'dashboard' }) %>
+  <main class="admin-main">
+    <h1 style="font-size:1.5rem;">Pending Approvals</h1>
+    <p>Review new sign-ups and package payments waiting for approval.</p>
+
+    <div class="grid grid-3" style="margin:22px 0 32px;">
+      <div class="card"><span class="label" style="font-size:0.78rem;color:var(--ink-soft);">Total users</span><h3 style="margin-top:6px;"><%= stats.totalUsers %></h3></div>
+      <div class="card"><span class="label" style="font-size:0.78rem;color:var(--ink-soft);">Active subscriptions</span><h3 style="margin-top:6px;"><%= stats.activeSubscriptions %></h3></div>
+      <div class="card"><span class="label" style="font-size:0.78rem;color:var(--ink-soft);">Pending approvals</span><h3 style="margin-top:6px;"><%= stats.pendingCount %></h3></div>
+    </div>
+
+    <% if (!pending.length) { %>
+      <div class="card"><p style="margin:0;">No pending payments right now.</p></div>
+    <% } %>
+
+    <% pending.forEach(function(sub) { %>
+      <div class="card" style="margin-bottom:18px;">
+        <div style="display:flex;justify-content:space-between;flex-wrap:wrap;gap:16px;">
+          <div>
+            <h3 style="margin-bottom:4px;"><%= sub.user ? sub.user.name : 'Unknown user' %></h3>
+            <p style="margin-bottom:2px;"><%= sub.user ? sub.user.mobile : '' %></p>
+            <p class="ur" style="margin-bottom:2px;"><%= sub.user ? (sub.user.customArea || sub.user.location) : '' %></p>
+            <p style="margin-bottom:0;">Package: <strong><%= sub.speedLabel %></strong> — Rs. <%= sub.price.toLocaleString() %>/month</p>
+            <p class="hint" style="margin-top:4px;">Requested <%= new Date(sub.createdAt).toDateString() %></p>
+          </div>
+
+          <div style="display:flex;gap:20px;flex-wrap:wrap;">
+            <% if (sub.user) { %>
+              <div style="text-align:center;">
+                <span class="hint" style="display:block;margin-bottom:4px;">ID Front</span>
+                <img src="<%= sub.user.idFrontImage %>" class="thumb" style="width:70px;height:70px;" alt="ID front" />
+              </div>
+              <div style="text-align:center;">
+                <span class="hint" style="display:block;margin-bottom:4px;">ID Back</span>
+                <img src="<%= sub.user.idBackImage %>" class="thumb" style="width:70px;height:70px;" alt="ID back" />
+              </div>
+            <% } %>
+            <% if (sub.paymentScreenshot) { %>
+              <div style="text-align:center;">
+                <span class="hint" style="display:block;margin-bottom:4px;">Payment proof</span>
+                <a href="<%= sub.paymentScreenshot %>" target="_blank" rel="noopener">
+                  <img src="<%= sub.paymentScreenshot %>" class="thumb" style="width:70px;height:70px;" alt="Payment screenshot" />
+                </a>
+              </div>
+            <% } %>
+          </div>
+        </div>
+
+        <div style="display:flex;gap:10px;margin-top:18px;">
+          <form action="/admin/subscriptions/<%= sub._id %>/approve" method="POST">
+            <button type="submit" class="btn btn-primary btn-sm">Approve</button>
+          </form>
+          <form action="/admin/subscriptions/<%= sub._id %>/reject" method="POST">
+            <button type="submit" class="btn btn-danger btn-sm">Reject</button>
+          </form>
+        </div>
+      </div>
+    <% }); %>
+  </main>
+</div>
+</body>
+</html>

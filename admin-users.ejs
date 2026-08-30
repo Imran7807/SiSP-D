@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<%- include('head', { title: 'Admin — Users' }) %>
+</head>
+<body>
+<div class="admin-shell">
+  <%- include('admin-sidebar', { active: 'users' }) %>
+  <main class="admin-main">
+    <h1 style="font-size:1.5rem;">Users</h1>
+    <p>All registered customer accounts.</p>
+
+    <div class="table-wrap" style="margin-top:20px;">
+      <table class="simple">
+        <thead>
+          <tr><th>Name</th><th>Mobile</th><th>Area</th><th>Package</th><th>Status</th><th>Joined</th></tr>
+        </thead>
+        <tbody>
+          <% users.forEach(function(u) { %>
+            <tr>
+              <td><%= u.name %></td>
+              <td><%= u.mobile %></td>
+              <td class="ur"><%= u.customArea || u.location %></td>
+              <td><%= u.subscription.speedLabel || '—' %></td>
+              <td><span class="status-pill status-<%= u.subscription.status %>"><%= u.subscription.status %></span></td>
+              <td><%= new Date(u.createdAt).toDateString() %></td>
+            </tr>
+          <% }); %>
+        </tbody>
+      </table>
+    </div>
+  </main>
+</div>
+</body>
+</html>

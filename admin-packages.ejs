@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<%- include('head', { title: 'Admin — Packages' }) %>
+</head>
+<body>
+<div class="admin-shell">
+  <%- include('admin-sidebar', { active: 'packages' }) %>
+  <main class="admin-main">
+    <h1 style="font-size:1.5rem;">Packages</h1>
+    <p>Manage the speed and price options shown to customers.</p>
+
+    <div class="card" style="max-width:520px;margin:22px 0 32px;">
+      <h3 style="font-size:1rem;">Add a new package</h3>
+      <form action="/admin/packages" method="POST">
+        <div class="two-col">
+          <div class="field">
+            <label for="speedLabel">Speed label</label>
+            <input type="text" id="speedLabel" name="speedLabel" placeholder="e.g. 15 MB/s" required />
+          </div>
+          <div class="field">
+            <label for="speedMbps">Speed (Mbps)</label>
+            <input type="number" id="speedMbps" name="speedMbps" placeholder="15" required />
+          </div>
+        </div>
+        <div class="two-col">
+          <div class="field">
+            <label for="price">Price (Rs. / month)</label>
+            <input type="number" id="price" name="price" placeholder="3500" required />
+          </div>
+          <div class="field">
+            <label for="durationDays">Duration (days)</label>
+            <input type="number" id="durationDays" name="durationDays" value="30" />
+          </div>
+        </div>
+        <button type="submit" class="btn btn-primary btn-block">Add Package</button>
+      </form>
+    </div>
+
+    <div class="table-wrap">
+      <table class="simple">
+        <thead>
+          <tr><th>Speed</th><th>Price</th><th>Duration</th><th>Status</th><th></th></tr>
+        </thead>
+        <tbody>
+          <% packages.forEach(function(pkg) { %>
+            <tr>
+              <td><%= pkg.speedLabel %></td>
+              <td>Rs. <%= pkg.price.toLocaleString() %></td>
+              <td><%= pkg.durationDays %> days</td>
+              <td><span class="status-pill <%= pkg.active ? 'status-active' : 'status-none' %>"><%= pkg.active ? 'active' : 'hidden' %></span></td>
+              <td style="display:flex;gap:8px;">
+                <form action="/admin/packages/<%= pkg._id %>/toggle" method="POST">
+                  <button type="submit" class="btn btn-outline btn-sm"><%= pkg.active ? 'Hide' : 'Show' %></button>
+                </form>
+                <form action="/admin/packages/<%= pkg._id %>/delete" method="POST" onsubmit="return confirm('Delete this package?');">
+                  <button type="submit" class="btn btn-danger btn-sm">Delete</button>
+                </form>
+              </td>
+            </tr>
+          <% }); %>
+        </tbody>
+      </table>
+    </div>
+  </main>
+</div>
+</body>
+</html>

@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<%- include('head', { title: 'Login — ' + companyName }) %>
+</head>
+<body>
+<%- include('header') %>
+
+<section class="center-page">
+  <div class="form-shell" style="max-width:440px;">
+    <h1 style="font-size:1.6rem;text-align:center;">Welcome back</h1>
+    <p style="text-align:center;margin-bottom:26px;">Login to view your package and account status.</p>
+
+    <% if (error) { %><div class="error-banner"><%= error %></div><% } %>
+
+    <form action="/login" method="POST">
+      <div class="field">
+        <label for="mobile">Mobile number</label>
+        <input type="tel" id="mobile" name="mobile" required value="<%= old.mobile || '' %>" placeholder="03xxxxxxxxx" />
+      </div>
+      <div class="field">
+        <label for="password">Password</label>
+        <input type="password" id="password" name="password" required placeholder="Your password" />
+      </div>
+      <button type="submit" class="btn btn-primary btn-block">Login</button>
+    </form>
+
+    <div class="helper-link">New here? <a href="/signup">Create a new connection</a></div>
+  </div>
+</section>
+
+<%- include('footer') %>
+</body>
+</html>
